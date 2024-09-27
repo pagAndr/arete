@@ -1,3 +1,55 @@
-[gd_scene format=3 uid="uid://b1rlklt5vjc78"]
+[gd_scene load_steps=11 format=3 uid="uid://b1rlklt5vjc78"]
+
+[ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://_Textures/textures_temp/grids/Dark/texture_05.png" id="1_fq7bx"]
+[ext_resource type="Environment" uid="uid://iqk6k4a0pefx" path="res://_Materials/world_environment/main_test_environment.tres" id="1_usp1o"]
+[ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://_Textures/textures_temp/grids/Orange/texture_05.png" id="2_fssg8"]
+[ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://_Textures/textures_temp/grids/Green/texture_01.png" id="3_lrf1m"]
+[ext_resource type="Texture2D" uid="uid://dmxmgw3rh0ym2" path="res://_Textures/textures_temp/grids/Purple/texture_01.png" id="4_8bpy3"]
+[ext_resource type="PackedScene" uid="uid://c6c5rf383fovy" path="res://Characters/Player/player.tscn" id="5_ux216"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ntttl"]
+albedo_texture = ExtResource("1_fq7bx")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m6q0h"]
+albedo_texture = ExtResource("2_fssg8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8c5n8"]
+albedo_texture = ExtResource("3_lrf1m")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8xcut"]
+albedo_texture = ExtResource("4_8bpy3")
 
 [node name="Main" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_usp1o")
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="floor" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_ntttl")
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Map"]
+transform = Transform3D(0.874442, 0, 0.48513, 0, 1, 0, -0.48513, 0, 0.874442, 0, 0.5, 4.78488)
+material_override = SubResource("StandardMaterial3D_m6q0h")
+use_collision = true
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Map"]
+transform = Transform3D(0.509792, 0, -0.860298, 0, 1, 0, 0.860298, 0, 0.509792, 5.09945, 0.5, -2.75962)
+material_override = SubResource("StandardMaterial3D_8c5n8")
+use_collision = true
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Map"]
+transform = Transform3D(1.68024, 0, -0.946228, 0, 1.92836, 0, 0.946228, 0, 1.68024, 5.09945, 1, 2.87967)
+material_override = SubResource("StandardMaterial3D_8xcut")
+use_collision = true
+
+[node name="Player" parent="." instance=ExtResource("5_ux216")]
