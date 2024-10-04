@@ -5,12 +5,14 @@ const running_animation = "running"
 const idle_animation = "idle"
 const attack_animation = "kick"
 #-----------------------------------------
-
+const HIT_STAGGER = 7.0
 
 @onready var camera_ref_point: Node3D = $Camera_ref_point
 @onready var animation_player: AnimationPlayer = $Visuals/mixamo_base/AnimationPlayer
 @onready var visuals: Node3D = $Visuals
 
+# PLAYER TELLING SOMEONE IT WAS HIT
+signal player_hit
 
 var SPEED = 3.0
 const JUMP_VELOCITY = 4.5
@@ -87,3 +89,7 @@ func _physics_process(delta: float) -> void:
 
 	if !is_locked:
 		move_and_slide()
+		
+func hit(dir):
+		emit_signal("player_hit")
+		velocity += dir * HIT_STAGGER
