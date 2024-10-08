@@ -14,8 +14,11 @@ const HIT_STAGGER = 7.0
 # PLAYER TELLING SOMEONE IT WAS HIT
 signal player_hit
 
+var DAMAGE = 3.0
 var SPEED = 3.0
 const JUMP_VELOCITY = 4.5
+
+var health = 90.0
 
 var is_running = false
 
@@ -89,7 +92,10 @@ func _physics_process(delta: float) -> void:
 
 	if !is_locked:
 		move_and_slide()
-		
-func hit(dir):
+
+
+# DE ADAUGAT → primeste damage de la hit (inca o variabila asteapta)		
+func hit(dir, DAMAGE):
 		emit_signal("player_hit")
 		velocity += dir * HIT_STAGGER
+		health -= DAMAGE

@@ -5,10 +5,10 @@ var player = null
 var state_machine
 
 const SPEED = 3.0
-
+const DAMAGE = 3.0
 const ATTACK_RANGE = 2
 
-@export var player_path := "/root/Main/Map/Player"
+@export var player_path := "/root/Main/Player"
 
 @onready var nav_agent = $NavigationAgent3D
 @onready var anim_tree = $AnimationTree
@@ -46,7 +46,11 @@ func _process(delta: float) -> void:
 func _target_in_range():
 	return global_position.distance_to(player.global_position) < ATTACK_RANGE
 
+
+# DE ADAUGAT: DAMAGE → transmite dmg jucatorului
 func _hit_finished():
 	if global_position.distance_to(player.global_position) < ATTACK_RANGE + 1.0:
 		var dir = global_position.direction_to(player.global_position)
-		player.hit(dir)
+		player.hit(dir, DAMAGE)
+	
+	
